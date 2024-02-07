@@ -1,3 +1,4 @@
+require("dotenv").config();
 let express = require("express");
 let app = express();
 console.log("Hello World");
@@ -8,8 +9,13 @@ app.get("/", (req, res) => {
   res.sendFile(absolutePath);
 });
 
-app.get("/json", (req,res)=>{
-    res.json({"message": "Hello json"});
+app.get("/json", (req, res) => {
+  let obj = { message: "Hello json" };
+  if (process.env.MESSAGE_STYLE == "uppercase") {
+    res.json({ message: obj.message.toUpperCase() });
+  } else {
+    res.json({ message: obj.message });
+  }
 });
 
 // use() method is used to mount middlewares like static()

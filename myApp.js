@@ -1,11 +1,18 @@
 let express = require("express");
 let app = express();
 console.log("Hello World");
+
+// get() is used to define GET routes
 app.get("/", (req, res) => {
-    let absolutePath = __dirname + "/views/index.html";
+  let absolutePath = __dirname + "/views/index.html";
   res.sendFile(absolutePath);
 });
 
-app.use('/public',express.static(__dirname + '/public'))
+app.get("/json", (req,res)=>{
+    res.json({"message": "Hello json"});
+});
+
+// use() method is used to mount middlewares like static()
+app.use("/public", express.static(__dirname + "/public"));
 
 module.exports = app;
